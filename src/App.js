@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
@@ -10,6 +11,7 @@ import AsideMenu from './components/AsideMenu';
 import Footer from './components/Footer';
 import Offline from './components/Offline';
 import Splash from './pages/Splash';
+import Profile from './pages/Profile';
 
 function App() {
   const [items, setItems] = useState([])
@@ -77,4 +79,13 @@ function App() {
   );
 }
 
-export default App;
+export default function AppRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
+  )
+};

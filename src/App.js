@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import Offline from './components/Offline';
 import Splash from './pages/Splash';
 import Profile from './pages/Profile';
+import Details from './pages/Details';
 
 function App() {
   const [items, setItems] = useState([])
@@ -66,7 +67,7 @@ function App() {
       {isLoading === true ? <Splash /> : (
         <>
           {offlineStatus && <Offline />}
-          <Header />
+          <Header mode='light' />
           <HeroSection />
           <Browse />
           <Arrived items={items} />
@@ -85,6 +86,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path='/details/:id' element={<Details />} />
       </Routes>
     </BrowserRouter>
   )

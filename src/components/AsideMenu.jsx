@@ -1,4 +1,5 @@
 import React from 'react'
+import Logo from '../images/content/logo.png'
 
 const AsideMenu = () => {
     return (
@@ -6,7 +7,7 @@ const AsideMenu = () => {
             <div className="border-t border-b border-gray-200 py-12 mt-16 px-4">
                 <div className="flex justify-center mb-8">
                     <img
-                        src="images/content/logo.png"
+                        src={Logo}
                         alt="Luxspace | Fulfill your house with beautiful furniture"
                     />
                 </div>

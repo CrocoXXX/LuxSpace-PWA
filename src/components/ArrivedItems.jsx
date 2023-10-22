@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const numberFormat = (price) => {
     const currency = Intl.NumberFormat('id-ID', {
@@ -47,8 +48,8 @@ const ArrivedItems = ({ item }) => {
             </div>
             <h5 className="text-lg font-semibold mt-4">{item.name}</h5>
             <span className="">{numberFormat(item.price)}</span>
-            <a href="details.html" className="stretched-link">
-            </a>
+            <Link to={`/details/${item.id}`} state={item} className="stretched-link">
+            </Link>
         </div>
     )
 }

@@ -13,8 +13,9 @@ import Offline from './components/Offline';
 import Splash from './pages/Splash';
 import Profile from './pages/Profile';
 import Details from './pages/Details';
+import Cart from './pages/Cart';
 
-function App() {
+function App({ cart }) {
   const [items, setItems] = useState([])
   const [offlineStatus, setOfflineStatus] = useState(!navigator.onLine)
   const [isLoading, setIsLoading] = useState(true)
@@ -67,7 +68,7 @@ function App() {
       {isLoading === true ? <Splash /> : (
         <>
           {offlineStatus && <Offline />}
-          <Header mode='light' />
+          <Header mode='light' cart={cart} />
           <HeroSection />
           <Browse />
           <Arrived items={items} />
@@ -81,12 +82,28 @@ function App() {
 }
 
 export default function AppRoutes() {
+  const [cart, setCart] = useState([])
+
+  const handleAddToCart = (item) => {
+    const currentIndex = cart.length
+    const newCart = [...cart, { id: currentIndex + 1, item }]
+    setCart(newCart)
+  }
+
+  const handleRemoveCartItem = (event, id) => {
+    const revisedCart = cart.filter((item) => {
+      return item.id !== id
+    })
+    setCart(revisedCart)
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<App cart={cart} />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path='/details/:id' element={<Details />} />
+        <Route path='/details/:id' element={<Details handleAddToCart={handleAddToCart} cart={cart} />} />
+        <Route path="/cart" element={<Cart cart={cart} handleRemoveCartItem={handleRemoveCartItem} />} />
       </Routes>
     </BrowserRouter>
   )

@@ -82,12 +82,14 @@ function App({ cart }) {
 }
 
 export default function AppRoutes() {
+  const cachedCart = window.localStorage.getItem('cart')
   const [cart, setCart] = useState([])
 
   const handleAddToCart = (item) => {
     const currentIndex = cart.length
     const newCart = [...cart, { id: currentIndex + 1, item }]
     setCart(newCart)
+    window.localStorage.setItem('cart', JSON.stringify(newCart))
   }
 
   const handleRemoveCartItem = (event, id) => {
@@ -95,7 +97,15 @@ export default function AppRoutes() {
       return item.id !== id
     })
     setCart(revisedCart)
+    window.localStorage.setItem('cart', JSON.stringify(revisedCart))
   }
+
+  useEffect(() => {
+    console.log('UseEffect for LocalStorage');
+    if (cachedCart !== null) {
+      setCart(JSON.parse(cachedCart))
+    }
+  }, [cachedCart])
 
   return (
     <BrowserRouter>
